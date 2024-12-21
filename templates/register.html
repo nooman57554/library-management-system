@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% include 'navbar_for_home.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Register</h2>
+
+    <!-- Form -->
+    <form method="POST" action="{{ url_for('register') }}" class="mx-auto" style="max-width: 400px;">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mt-3">Register</button>
+    </form>
+
+    <p class="text-center mt-3">Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+</div>
+{% endblock %}

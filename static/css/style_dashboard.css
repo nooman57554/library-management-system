@@ -1,0 +1,122 @@
+/* General reset and styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* Full screen height */
+}
+
+/* Books Section */
+.books-section {
+    flex: 3; /* Takes up 75% of the screen */
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border-right: 2px solid #ddd;
+}
+
+/* Search Bar */
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: calc(100% - 100px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+/* Books Grid */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.book-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.book-card h5 {
+    margin: 10px;
+    font-size: 18px;
+}
+
+.book-card p {
+    margin: 10px;
+    color: #555;
+}
+
+.book-card .btn {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.book-card .btn-primary {
+    background-color: #007bff;
+}
+
+.book-card .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.book-card .btn-secondary {
+    background-color: #6c757d;
+}
+
+/* Reports Section */
+.reports-section {
+    flex: 1; /* Takes up 25% of the screen */
+    padding: 20px;
+    background-color: #fff;
+}
+
+.report-card {
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.report-card:hover {
+    background-color: #1e7e34;
+}

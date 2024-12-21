@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<h2>Overdue Books Report</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>User</th>
+            <th>Borrowed Date</th>
+            <th>Due Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in overdue_books %}
+        <tr>
+            <td>{{ record.book.title }}</td>
+            <td>{{ record.user.username }}</td>
+            <td>{{ record.borrow_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ record.due_date.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if not overdue_books %}
+<p>No overdue books found.</p>
+{% endif %}
+{% endblock %}

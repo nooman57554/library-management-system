@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<h2>User Activity Report</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Borrowed Date</th>
+            <th>Due Date</th>
+            <th>Returned</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in user_borrowed_books %}
+        <tr>
+            <td>{{ record.book.title }}</td>
+            <td>{{ record.borrow_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ record.due_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ 'Yes' if record.returned else 'No' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if not user_borrowed_books %}
+<p>You have not borrowed any books yet.</p>
+{% endif %}
+{% endblock %}

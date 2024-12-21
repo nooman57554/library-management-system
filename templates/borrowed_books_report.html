@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+<h2>Borrowed Books Report</h2>
+
+<!-- Export to CSV Button -->
+<a href="{{ url_for('export_borrowed_books_csv') }}" class="btn btn-primary mb-3">Export to CSV</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>User</th>
+            <th>Borrowed Date</th>
+            <th>Due Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in borrowed_books %}
+        <tr>
+            <td>{{ record.book.title }}</td>
+            <td>{{ record.user.username }}</td>
+            <td>{{ record.borrow_date }}</td>
+            <td>{{ record.due_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

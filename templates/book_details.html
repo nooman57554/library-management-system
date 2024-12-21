@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .cover-image {
+            max-width: 300px; /* Set the desired width */
+            max-height: 400px; /* Set the desired height */
+            margin: 0 auto; /* Center the image horizontally */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Book Details</h1>
+        <div class="card">
+            <img src="{{ book.cover_url }}" class="card-img-top cover-image" alt="Book Cover">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">Author: {{ book.author }}</p>
+                <p class="card-text">Genre: {{ book.genre }}</p>
+                <p class="card-text">Published: {{ book.year_published }}</p>
+                <form action="{{ url_for('borrow_book', book_id=book.id) }}" method="post">
+                    <button type="submit" class="btn btn-primary">Borrow</button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('user_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

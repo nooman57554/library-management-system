@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% include 'navbar.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5 px-0">
+    <div class="row mx-0">
+        <!-- Main Content Section (Books Section) -->
+        <div class="col-md-9">
+            <!-- Search Bar -->
+            <div class="mt-4">
+                <form method="GET" action="{{ url_for('user_dashboard') }}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search books..." name="search" value="{{ request.args.get('search', '') }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                <li class="flash-{{ category }}">
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+
+            <!-- Books Display -->
+            <h3 class="mt-4">Available Books</h3>
+            <div class="row mt-2">
+                {% for book in books %}
+                <div class="col-md-3 mb-3">
+                    <div class="card shadow-sm border-light">
+                        <img src="{{ book.cover_url }}" class="card-img-top" alt="Book Cover" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ book.title }}</h5>
+                            <p class="card-text">{{ book.author }}</p>
+                            <a href="{{ url_for('book_details', book_id=book.id) }}" class="btn btn-primary">View Details</a>
+                            {% if book.availability == 'Not Available' %}
+                                <button class="btn btn-secondary" disabled>Currently Unavailable</button>
+                            {% else %}
+                                <a href="{{ url_for('borrow_book', book_id=book.id) }}" class="btn btn-success">Borrow</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Borrowed Books -->
+            <h3 id="borrowed-books" class="mt-4">Your Borrowed Books</h3>
+            <div class="row mt-2">
+                {% for borrowed in borrowed_books %}
+                <div class="col-md-3 mb-3">
+                    <div class="card shadow-sm border-light">
+                        <img src="{{ borrowed.book.cover_url }}" class="card-img-top" alt="Book Cover" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ borrowed.book.title }}</h5>
+                            <p class="card-text">{{ borrowed.book.author }}</p>
+                            <p><strong>Due Date:</strong> {{ borrowed.due_date.strftime('%Y-%m-%d') }}</p>
+                            {% if not borrowed.returned %}
+                                <a href="{{ url_for('return_book', borrowed_book_id=borrowed.id) }}" class="btn btn-danger">Return</a>
+                            {% else %}
+                                <button class="btn btn-secondary" disabled>Returned</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Reports Section (Right Column) -->
+        <div class="col-md-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Reports</h3>
+                    <div class="d-flex flex-column" style="gap: 1rem;">
+                        <div class="card" style="background-color: #28a745; color: white; display: flex; justify-content: center; align-items: center; height: 10rem;">
+                            <a href="{{ url_for('user_activity_report') }}" class="text-white text-center w-100">
+                                <h4>User Activity</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
